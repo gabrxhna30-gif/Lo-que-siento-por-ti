@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My world</title>
+
+
+<style>
+.neon{
+    color:#ffffff;
+    text-shadow:
+        0 0 5px #4d7cff,
+        0 0 10px #4d7cff,
+        0 0 20px #4d7cff,
+        0 0 40px #1e3cff;
+}
+
+#loader{
+    opacity:1;
+    transition: opacity 0.6s ease;
+}
+
+body{
+    margin:0;
+    background:#141414;
+    color:white;
+    text-align:center;
+    font-family: system-ui, sans-serif;
+    perspective: 1200px;
+    overflow:hidden;
+}
+
+h1{
+    font-size:clamp(28px, 6vw, 60px);
+    color:#00ccff;
+    margin-top:30px;
+}
+
+#escena{
+    width:100%;
+    max-width:35px;
+    height:60px;
+    margin:40px auto;
+    position:relative;
+    transform-style: preserve-3d;
+}
+
+#rueda{
+    width:100%;
+    height:100%;
+    position:absolute;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+}
+
+#rueda button{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform-style: preserve-3d;
+    padding:12px 26px;
+    font-size:clamp(16px, 4vw, 22px);
+    background:#b154ee;
+    color:white;
+    border:none;
+    border-radius:999px;
+    cursor:pointer;
+    white-space:nowrap;
+    opacity:0;
+    transition:
+        opacity 0.5s ease,
+        transform 0.6s ease;
+}
+
+#frase{
+    margin-top:25px;
+    font-size:18px;
+    min-height:24px;
+    white-space:pre-wrap;
+}
+
+#corazones{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:-1;
+}
+
+#contenido{
+    opacity:0;
+    transition: opacity 0.8s ease;
+}
+
+
+.controles{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+}
+
+.controles button{
+    padding:10px 22px;
+    font-size:16px;
+    border-radius:20px;
+    border:none;
+    cursor:pointer;
+    background:#333;
+    color:white;
+};
+</style>
+
+<link rel="icon" type="image/x-icon"
+          href="image/i-love-you-editable-logo-and-icon-symbol-design-template-4ac2c2dedecbfcc34ee9909a72c8aa7a_screen.jpg">
+</head>
+
+<body><canvas id="corazones"></canvas>
+
+
+<div id="loader">Cargando...</div>
+
+<div id="contenido">
+
+<h1 class="neon">Lo que siento por tí</h1>
+
+<div id="escena">
+    <div id="rueda">
+        <button>Holi</button>
+        <button>Antes</button>
+        <button>Durante</button>
+        <button>Despues</button>
+        <button>Infinito</button>
+
+    </div>
+</div>
+
+<div class="controles">
+    <button onclick="anterior()">Anterior</button>
+    <button onclick="siguiente()">Siguiente</button>
+</div>
+
+<div id="frase"></div>
+
+<script>
+const rueda = document.getElementById("rueda");
+const botones = rueda.children;
+const total = botones.length;
+const angulo = 360 / total;
+const profundidad = 220;
+let indice = 0;
+
+const frases = {
+    "Holi": [
+        "Hola mi niña hermosaaaa. ¿Cómo estas? espero que muy bien ...",
+        "Buenoooo este es un pequeño proyecto que hice para expresar lo que siento por ti de una forma diferente y divertida, espero que te guste y te saque una sonrisa",
+        "Te preguntaras: ¿Que piñatas es todo esto? pues ¿Recuerdas que me pedistes una pagina donde pongas tus emociones y te dé frases?",
+        "Pues tomé esa idea, y lo convertir en algo un poco mejor (espero), es un recorrido de lo que hemos pasado juntos, el como me enamoré de tí, y a su vez, es un recordatorio de lo mucho que te amo",
+        "Así que sin nada mas que decir, espero te guste este detalle, y que nunca olvides lo mucho que te amo, y lo importante que eres para mi",
+        "Pasa a la siguiente parte para empezar"
+    ],
+    
+    "Antes": [
+        "Hablaré de la primera vez que nos conocimos, y de que tengo memoria, porque al parecer nos conocíamos desde hace mucho, pero no me acuerdo jajajaj",
+        "Entre enero a febrero, 2024, te conocí en el colegio, clases de refuerzo, y no fue algo previsto, eras amiga de alguien que conocía, y ahí fue cuando supe de tu existencia, siempre te veia con esa persona, te hablaba si, pero solo para cosas pequeñas, no nos conociamos mucho.",
+        "No hablabamos mucho la verdad, casi nada, por cosas que bueno, ya debes de saber, en su momento tenia que haber cierta distancia, sinceramente nunca imaginé estar así contigo, antes solo eras mi: cuñada, y miranos ahora, eres mi todo 💗"
+    ],
+    "Durante": [
+        "Biennn, aquí viene el ``desarrollo´´ de nuestra pequeña historia hasta la fecha",
+        "De octubre para delante, 2025, empezamos a hablar mucho más, pero en serio, muuuuchooo más jajaja, aún todo eran bromas, risas, solamente amigos más cercanos con un poco mas de confianza, dejamos esa distancia que teniamos que mantener antes de lado, porque ya no habia nada que nos hay impedido hablar normal.", 
+        "Poco a poco nos fuimos siendo más cercanos, hablamos de nuestros problemas, nos molestabamos mutuamente, te cuidaba, me cuidabas, salíamos juntos del colegio, abrazos, besos, tomadas de mano, hubieron muchos rumores de nosotros, pero y? Creo q al fin y al cabo tuvieron razón jajaja."
+    ],
+    "Despues": [
+
+        "Okiii vamos terminando mi niña hermosa, ahora toca la última parte, lo más bonito de todo",
+        "Ese hermoso 17 de diciembre,  2025, dónde supimos todo, dónde ya no tuvimos miedo, bueno, yo ya no tuve miedo de actuar, te fui a dejar a tu casa, estábamos cerca, te tenía abrazada, a punto de irme, pero te pregunté: ¿Lo hago o no? Tú toda confundida jajaj, y bno, poco a poco me fui acercando, hasta que por fin te besé, pensé que no sería correspondido, pero fue todo lo contrario, desde ahí todo fue mucho mejor, me gustaste, te guste, llegué feliz a mi casa, no te imaginas cuánto.",
+        "Quedamos para conocernos un poco más, pasaron los días, y cada q nos veíamos no parecía q fuésemos solo amigos, estábamos beso y beso jaja, hasta ese hermoso 25 de diciembre, navidad, mi mejor navidad, dónde todo fue oficial, salimos a caminar por ahí, y llegamos al parque, no podía esperar más, no me importó que sea un día festivo, porque sinceramente, que tú me digas que sí, iba a ser mi mejor regalo, y lo fue, te hice la pregunta, y me respondistes con un tranquilo: si, si quiero."
+    ],
+    "Infinito": [
+        "Desde ese día hasta el día de hoy, me has hecho muy feliz mi amor, y espero que yo tmb te esté haciendo feliz, gracias por todas las risas, los dramas, los berrinches, esas noches, gracias por todos los buenos y malos momentos, gracias simplemente existir mi amor, gracias por estar siempre conmigo cuando lo necesito, y no quieres que dudes en pedirme ayuda cuando tú lo necesites, tal vez no tenga la respuesta a todo, pero siempre estaré ahí para tí mi niña hermosa. Aún no queda mucho por recorrer, y lo único que pido es hacerlo a tu lado, pueden haber problemas en el futuro, pero podemos solucionarlo, no te prometo estar siempre contigo, te prometo estar contigo hasta donde me lo permitas, no te digo ``te amo con el corazón´´t te digo ``te amo con el alma´´ porque el corazón muere, el alma siempre está presente.",
+        "Espero este pequeño detalle te haya gustado, porque sino voy a llorar jajaj, te amo mucho mi niña hermosa 💗, espero tengas un lindo día, tarde y noche, muaaa 💋, besito pa tí, simplemente por existir ",
+        "Te amo mi niña bella. Feliz San Valentín ",
+        "Atte: Tu niño"
+    ],
+
+};
+
+const indicesFrase = {};
+const contenedorFrases = document.getElementById("frase");
+let emocionActual = null;
+
+function actualizar(){
+    for(let i = 0; i < total; i++){
+        const offset = i - indice;
+
+        botones[i].style.transform = `
+            translate(-50%, -50%)
+            rotateY(${offset * angulo}deg)
+            translateZ(${profundidad}px)
+            scale(${offset === 0 ? 1.1 : 0.7})
+        `;
+
+        botones[i].style.opacity = offset === 0 ? "1" : "0";
+        botones[i].style.pointerEvents = offset === 0 ? "auto" : "none";
+    }
+}
+
+function anterior(){
+    indice = (indice - 1 + total) % total;
+    contenedorFrases.innerHTML = "";
+    emocionActual = null;
+    actualizar();
+}
+
+function siguiente(){
+    indice = (indice + 1) % total;
+    contenedorFrases.innerHTML = "";
+    emocionActual = null;
+    actualizar();
+}
+
+
+actualizar();
+
+function escribirTexto(texto, elemento){
+    let i = 0;
+    const intervalo = setInterval(() => {
+        elemento.textContent += texto.charAt(i);
+        i++;
+        if(i >= texto.length){
+            clearInterval(intervalo);
+        }
+    }, 35);
+    
+}
+
+for(let boton of botones){
+    boton.addEventListener("click", () => {
+        const emocion = boton.textContent.trim();
+        if(!frases[emocion]) return;
+
+        if(emocion !== emocionActual){
+            emocionActual = emocion;
+            indicesFrase[emocion] = 0;
+            contenedorFrases.innerHTML = "";
+        }
+
+        const lista = frases[emocion];
+        const i = indicesFrase[emocion];
+
+        if(i < lista.length){
+            const p = document.createElement("p");
+            contenedorFrases.appendChild(p);
+            escribirTexto(lista[i], p);
+            indicesFrase[emocion]++;
+        }
+    });
+}
+
+window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+    const contenido = document.getElementById("contenido");
+
+    loader.style.opacity = "0";
+
+    setTimeout(() => {
+        loader.style.display = "none";
+        contenido.style.opacity = "1";
+    }, 600);
+});
+
+
+const canvas = document.getElementById("corazones");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+const heartColor = "purple";
+const corazones = [];
+
+for(let i = 0; i < 25; i++){
+    corazones.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 8 + 6,
+        speed: Math.random() * 0.7 + 0.3
+    });
+}
+
+function dibujarCorazon(x, y, size){
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.bezierCurveTo(x - size, y - size, x - size*2, y + size/3, x, y + size*2);
+    ctx.bezierCurveTo(x + size*2, y + size/3, x + size, y - size, x, y);
+    ctx.fillStyle = heartColor;
+    ctx.fill();
+}
+
+function animar(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    corazones.forEach(c => {
+        c.y += c.speed;
+
+        if(c.y > canvas.height){
+            c.y = -10;
+            c.x = Math.random() * canvas.width;
+        }
+
+        dibujarCorazon(c.x, c.y, c.size);
+    });
+
+    requestAnimationFrame(animar);
+}
+
+animar();
+
+</script>
+
+
+</div>
+</body>
+</html>
