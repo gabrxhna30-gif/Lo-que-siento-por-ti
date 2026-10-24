@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lo que siento por ti</title>
+<link rel="icon" type="image/png" href="i-love-you-.jpg">
 
 <style>
   :root {
@@ -32,85 +34,234 @@
   }
 
   #corazones {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
   }
 
-  /* Pantalla de Carga */
   #loader {
-    position: fixed; inset: 0; background: var(--bg-dark); display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 15px; z-index: 100; transition: opacity 0.6s ease;
-    font-size: 1.2rem; letter-spacing: 2px; color: #e2e8f0;
+    position: fixed;
+    inset: 0;
+    background: var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    z-index: 100;
+    transition: opacity 0.6s ease;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    color: #e2e8f0;
   }
-  .spinner {
-    width: 40px; height: 40px; border: 3px solid rgba(255, 255, 255, 0.1);
-    border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* Tarjetas Generales */
-  .main-card, .diary-card {
-    position: relative; z-index: 10; width: 100%; max-width: 650px;
-    background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 24px; padding: 30px 20px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; align-items: center;
-    opacity: 0; transition: opacity 0.8s ease; margin-bottom: 25px;
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
   }
-  .diary-card { display: none; animation: fadeIn 0.5s ease forwards; }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .main-card, .diary-card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 650px;
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    padding: 30px 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    margin-bottom: 25px;
+  }
+
+  .diary-card {
+    display: none;
+    animation: fadeIn 0.5s ease forwards;
+  }
 
   h1, .diary-card h2 {
-    font-weight: 700; background: linear-gradient(135deg, #ffffff);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 35px rgb(140, 0, 255);
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 35px rgb(140, 0, 255);
   }
-  h1 { font-size: clamp(24px, 5vw, 38px); margin-bottom: 20px; }
-  .diary-card h2 { font-size: clamp(20px, 4vw, 28px); margin-bottom: 15px; }
 
-  /* Rueda 3D */
-  #escena { width: 100%; height: 80px; perspective: 1000px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; }
-  #rueda { width: 200px; height: 50px; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  h1 {
+    font-size: clamp(24px, 5vw, 38px);
+    margin-bottom: 20px;
+  }
+
+  .diary-card h2 {
+    font-size: clamp(20px, 4vw, 28px);
+    margin-bottom: 15px;
+  }
+
+  #escena {
+    width: 100%;
+    height: 80px;
+    perspective: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+
+  #rueda {
+    width: 200px;
+    height: 50px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
   #rueda button {
-    position: absolute; inset: 0; border: none; background: linear-gradient(135deg, #a855f7);
-    color: white; font-size: 1.1rem; font-weight: 600; border-radius: 50px; cursor: pointer;
-    box-shadow: 0 4px 20px var(--primary-glow); transition: all 0.5s ease;
+    position: absolute;
+    inset: 0;
+    border: none;
+    background: linear-gradient(135deg, #a855f7);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px var(--primary-glow);
+    transition: all 0.5s ease;
   }
 
-  /* Controles de Rueda */
-  .controles { display: flex; gap: 15px; margin-bottom: 25px; }
+  .controles {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
   .btn-control {
-    background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white; padding: 10px 20px; border-radius: 30px; font-size: 0.95rem; cursor: pointer; transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
   }
-  .btn-control:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-2px); }
 
-  /* Cuadro de Frases y Diario Contenido */
+  .btn-control:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+  }
+
   #frase-box, .diary-content {
-    width: 100%; height: 220px; background: rgba(0, 0, 0, 0.25); border-radius: 16px; padding: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.05); overflow-y: auto; scroll-behavior: smooth;
-    text-align: center; color: var(--text-sub); font-size: 1.05rem; line-height: 1.6;
+    width: 100%;
+    height: 220px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    text-align: center;
+    color: var(--text-sub);
+    font-size: 1.05rem;
+    line-height: 1.6;
   }
-  #frase-box { display: flex; flex-direction: column; position: relative; cursor: pointer; }
 
-  /* Barra de Scroll Personalizada */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); border-radius: 10px; }
-  ::-webkit-scrollbar-thumb { background: rgba(168, 85, 247, 0.5); border-radius: 10px; }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(168, 85, 247, 0.8); }
+  #frase-box {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    cursor: pointer;
+  }
 
-  #frase p { margin-bottom: 12px; animation: fadeIn 0.4s ease forwards; }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
 
-  /* Tira de Fechas Deslizables */
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(168, 85, 247, 0.5);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 85, 247, 0.8);
+  }
+
+  #frase p {
+    margin-bottom: 12px;
+    animation: fadeIn 0.4s ease forwards;
+  }
+
   .diary-dates {
-    display: flex; flex-wrap: nowrap; gap: 10px; overflow-x: auto; width: 100%;
-    padding-bottom: 10px; margin-bottom: 15px; justify-content: flex-start; scroll-behavior: smooth;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    justify-content: flex-start;
+    scroll-behavior: smooth;
   }
-  .date-btn {
-    background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15);
-    color: var(--text-main); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem;
-    cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 0.3s ease;
-  }
-  .date-btn:hover { background: rgba(168, 85, 247, 0.4); transform: translateY(-2px); }
-  .date-btn.active { background: #a855f7; border-color: #a855f7; box-shadow: 0 0 15px rgba(168, 85, 247, 0.5); font-weight: 600; }
 
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .date-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-main);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+
+  .date-btn:hover {
+    background: rgba(168, 85, 247, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .date-btn.active {
+    background: #a855f7;
+    border-color: #a855f7;
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+    font-weight: 600;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 </style>
 </head>
 
@@ -148,58 +299,58 @@
   </div>
 </div>
 
-<!-- SECCIÓN SECUNDARIA: DIARIO (Se abre al elegir "¿The end?") -->
+<!-- SECCIÓN SECUNDARIA: DIARIO -->
 <div class="diary-card" id="diaryCard">
   <h2>Amandote en silencio</h2>
   <div class="diary-dates" id="diaryDatesContainer"></div>
-  <div class="diary-content" id="diaryContent">
-  </div>
+  <div class="diary-content" id="diaryContent"></div>
 </div>
 
 <script>
-
-/* ==========================================
-   1. DATOS (FRASES Y DIARIO)
-   ========================================== */
 const diarioFechas = {
-    "22/10/26": "No sé si leas esto, pero aún así lo escribo, esto es una pequeña forma de hablarte y de no hablarte a la vez, y es que extraño contarte mis días, y bueno, esta es una buena manera de hacerlo (o eso creo yo)",
+    "22/10/26": "No sé si leas esto, pero aun así lo escribo. Esta es una pequeña forma de hablarte y de no hablarte a la vez, y es que extraño contarte mis días... y bueno, esta es una buena manera de hacerlo (o eso creo yo).",
+
+    "23/10/26": "Holam, bueno, solo quería decirte que espero que hayas salido bien en tu libreta ayer. La verdad es que estaba ahí en el colegio recogiendo la de mi hermano y, bueno, cuando salgo de la reunión estaba tu mami ahí y la saludé, obviamente. Me trajo algo de nostalgia tu mami, la verdad, y mi teacher ahí también molestándome, jajaj. Bueno, era eso. Espero que te haya ido muy bien la verdad. Sigue esforzándote cada día más y nunca bajes tus notas, este año ya no debes de llevar matemática en vacaciones, yo sé que tú puedes. Cuídate."
+
 };
 
 const frases = {
-    "Holi": [
-        "Hola mi niña hermosa. ¿Cómo estas? Espero que muy bien ...",
-        "Buenoooo este es un pequeño proyecto que hice para expresar lo que siento por ti de una forma diferente y divertida, espero que te guste y te saque una sonrisa",
-        "Te preguntaras: ¿Que piñatas es todo esto? pues ¿Recuerdas que me pedistes una pagina donde pongas tus emociones y te dé frases?",
-        "Pues tomé esa idea, y lo convertir en algo un poco mejor (espero), es un recorrido de lo que hemos pasado juntos, el como me enamoré de tí, y a su vez, es un recordatorio de lo mucho que te amo",
-        "Así que sin nada mas que decir, espero te guste este detalle, y que nunca olvides lo mucho que te amo, y lo importante que eres para mi",
-        "Pasa a la siguiente parte para empezar"
-    ],
-    "Antes": [
-        "Hablaré de la primera vez que nos conocimos, y de que tengo memoria, porque al parecer nos conocíamos desde hace mucho, pero no lo recordaba jajajaj",
-        "Entre enero a febrero, 2024, te conocí en el colegio, clases de refuerzo, y no fue algo previsto, eras amiga de alguien que conocía, y ahí fue cuando supe de tu existencia, siempre te veia con esa persona, te hablaba si, pero solo para cosas pequeñas, no nos conociamos mucho.",
-        "No hablabamos mucho la verdad, casi nada, por cosas que bueno, ya debes de saber, en su momento tenia que haber cierta distancia, sinceramente nunca imaginé estar así contigo, antes solo eras mi ''cuñada'', y miranos ahora, eres mi todo 💗"
-    ],
-    "Durante": [
-        "Biennn, aquí viene el ''desarrollo'' de nuestra pequeña historia hasta la fecha",
-        "De octubre para delante, 2025, empezamos a hablar mucho más, pero en serio, muuuuchooo más jajaja, todo aún eran bromas, risas, solamente amigos más cercanos con un poco mas de confianza, dejamos esa distancia que teniamos que mantener antes de lado, porque ya no habia nada que nos hay impedido hablar normal.", 
-        "Poco a poco nos fuimos siendo más cercanos, hablamos de nuestros problemas, nos molestabamos mutuamente, te cuidaba, me cuidabas, salíamos juntos del colegio, abrazos, besos, tomadas de mano, hubieron muchos rumores de nosotros, pero y eso que? Creo q al fin y al cabo tuvieron razón jajaja."
-    ],
-    "Después": [
-        "Okey ya vamos terminando mi niña hermosa, ahora toca la última parte, lo más bonito de todo",
-        "Ese hermoso 17 de diciembre,  2025, dónde supimos todo, dónde ya no tuvimos miedo, bueno, yo ya no tuve miedo de actuar, te fui a dejar a tu casa, estábamos cerca, te tenía abrazada, a punto de irme, pero te pregunté: ¿Lo hago o no? Tú toda confundida jajaj, y bueno, poco a poco me fui acercando, hasta que por fin te besé, pensé que no sería correspondido, pero fue todo lo contrario, desde ahí todo fue mucho mejor, me gustaste, te guste, llegué feliz a mi casa, no te imaginas cuánto.",
-        "Quedamos para conocernos un poco más, pasaron los días, y cada q nos veíamos no parecía q fuésemos solo amigos, estábamos beso y beso jaja, hasta ese hermoso 25 de diciembre, navidad, mi mejor navidad, dónde todo fue oficial, salimos a caminar por ahí, y llegamos al parque, no podía esperar más, no me importó que sea un día festivo, porque sinceramente, que tú me digas que sí, iba a ser mi mejor regalo, y lo fue, te hice la pregunta, y me respondistes con un tranquilo: si, si quiero."
-    ],
-    "Infinito": [
-        "Desde ese día hasta el día de hoy, me has hecho muy feliz mi amor, y espero que yo tambien te esté haciendo feliz, gracias por todas las risas, los dramas, los berrinches, esas noches, gracias por todos los buenos y malos momentos, gracias simplemente existir mi amor, gracias por estar siempre conmigo cuando lo necesito, y no quiero que dudes en pedirme ayuda cuando tú lo necesites, tal vez no tenga la respuesta a todo, pero siempre estaré ahí para tí mi niña hermosa. Aún nos queda mucho por recorrer, y lo único que pido es hacerlo a tu lado, pueden haber problemas en el futuro, pero podemos solucionarlo, no te prometo estar siempre contigo, te prometo estar contigo hasta donde me lo permitas, no te digo ''te amo con el corazón'' te digo ''te amo con el alma'' porque el corazón muere, el alma siempre está presente.",
-        "Espero este pequeño detalle te haya gustado, porque sino voy a llorar jajaj, te amo mucho mi niña hermosa 💗, espero tengas un lindo día, tarde y noche, besito pa tí, simplemente por existir",
-        "Te amo mi niña bella. Feliz San Valentín ",
-        "Atte: Tu niño."
-    ]
+"Holi": [
+    "Hola, mi niña hermosa. ¿Cómo estás? Espero que muy bien...",
+    "Buenoooo, este es un pequeño proyecto que hice para expresar lo que siento por ti de una forma diferente y divertida. Espero que te guste y te saque una sonrisa.",
+    "Te preguntarás: ¿Qué piñatas es todo esto? Pues, ¿recuerdas que me pediste una página donde pongas tus emociones y te dé frases?",
+    "Pues tomé esa idea y la convertí en algo un poco mejor (espero). Es un recorrido de lo que hemos pasado juntos, el cómo me enamoré de ti y, a su vez, es un recordatorio de lo mucho que te amo.",
+    "Así que, sin nada más que decir, espero que te guste este detalle y que nunca olvides lo mucho que te amo y lo importante que eres para mí.",
+    "Pasa a la siguiente parte para empezar."
+],
+
+"Antes": [
+    "Hablaré de la primera vez que nos conocimos, y de lo que tengo memoria, porque al parecer nos conocíamos desde hace mucho, pero no lo recordaba, jajajaj.",
+    "Entre enero y febrero de 2024 te conocí en el colegio, en las clases de refuerzo, y no fue algo previsto. Eras amiga de alguien que conocía, y ahí fue cuando supe de tu existencia. Siempre te veía con esa persona, y te hablaba, sí, pero solo para cosas pequeñas. No nos conocíamos mucho.",
+    "No hablábamos mucho, la verdad, casi nada, por cosas que, bueno, ya debes de saber. En su momento tenía que haber cierta distancia. Sinceramente, nunca imaginé estar así contigo. Antes solo eras mi \"cuñada\", y míranos ahora, eres mi todo. 💗"
+],
+
+"Durante": [
+    "Biennn, aquí viene el \"desarrollo\" de nuestra pequeña historia hasta la fecha.",
+    "De octubre para adelante, 2025, empezamos a hablar mucho más, pero en serio, muuuuchooo más, jajaja. Todo aún eran bromas, risas, solamente amigos más cercanos con un poco más de confianza. Dejamos esa distancia que teníamos que mantener antes de lado, porque ya no había nada que nos haya impedido hablar normal.",
+    "Poco a poco nos fuimos haciendo más cercanos: hablábamos de nuestros problemas, nos molestábamos mutuamente, te cuidaba, me cuidabas, salíamos juntos del colegio, abrazos, besos, tomadas de mano... Hubo muchos rumores de nosotros, ¿pero y eso qué? Creo que, al fin y al cabo, tuvieron razón, jajaja."
+],
+
+"Después": [
+    "Okey, ya vamos terminando, mi niña hermosa. Ahora toca la última parte, lo más bonito de todo.",
+    "Ese hermoso 17 de diciembre de 2025, donde supimos todo, donde ya no tuvimos miedo... bueno, yo ya no tuve miedo de actuar. Te fui a dejar a tu casa, estábamos cerca, te tenía abrazada, a punto de irme, pero te pregunté: ¿Lo hago o no? Tú toda confundida, jajaj, y bueno, poco a poco me fui acercando hasta que por fin te besé. Pensé que no sería correspondido, pero fue todo lo contrario. Desde ahí todo fue mucho mejor: me gustaste, te gusté, llegué feliz a mi casa, no te imaginas cuánto.",
+    "Quedamos para conocernos un poco más. Pasaron los días, y cada que nos veíamos no parecía que fuésemos solo amigos, estábamos beso y beso, jaja, hasta ese hermoso 25 de diciembre. Navidad, mi mejor Navidad, donde todo fue oficial. Salimos a caminar por ahí y llegamos al parque. No podía esperar más, no me importó que sea un día festivo, porque, sinceramente, que tú me dijeras que sí iba a ser mi mejor regalo, y lo fue. Te hice la pregunta y me respondiste con un tranquilo: sí, sí quiero."
+],
+
+"Infinito": [
+    "Desde ese día hasta el día de hoy me has hecho muy feliz, mi amor, y espero que yo también te esté haciendo feliz. Gracias por todas las risas, los dramas, los berrinches, esas noches... gracias por todos los buenos y malos momentos. Gracias simplemente por existir, mi amor, gracias por estar siempre conmigo cuando lo necesito, y no quiero que dudes en pedirme ayuda cuando tú lo necesites. Tal vez no tenga la respuesta a todo, pero siempre estaré ahí para ti, mi niña hermosa. Aún nos queda mucho por recorrer, y lo único que pido es hacerlo a tu lado. Pueden haber problemas en el futuro, pero podemos solucionarlos. No te prometo estar siempre contigo, te prometo estar contigo hasta donde me lo permitas. No te digo \"te amo con el corazón\", te digo \"te amo con el alma\", porque el corazón muere, el alma siempre está presente.",
+    "Espero que este pequeño detalle te haya gustado, porque si no, voy a llorar, jajaj. Te amo mucho, mi niña hermosa 💗. Espero que tengas un lindo día, tarde y noche. Besito para ti, simplemente por existir.",
+    "Te amo, mi niña bella. Feliz San Valentín.",
+    "Atte.: Tu niño."
+]
+
 };
 
-/* ==========================================
-   2. LÓGICA DE LA RUEDA Y NAVEGACIÓN
-   ========================================== */
 const rueda = document.getElementById("rueda");
 const botones = rueda.children;
 const total = botones.length;
@@ -211,16 +362,36 @@ const indicesFrase = {};
 const contenedorFrases = document.getElementById("frase");
 const cajaFrase = document.getElementById("frase-box");
 const diaryCard = document.getElementById("diaryCard");
-let escribiendo = false;
 
+let escribiendo = false;
+let intervaloEscritura = null;
+let idEscritura = 0;
+
+/* Cancela cualquier escritura anterior */
+function cancelarEscritura() {
+    idEscritura++;
+
+    if (intervaloEscritura !== null) {
+        clearInterval(intervaloEscritura);
+        intervaloEscritura = null;
+    }
+
+    escribiendo = false;
+    cajaFrase.style.pointerEvents = "auto";
+}
+
+/* Actualiza la rueda */
 function actualizarRueda() {
+    cancelarEscritura();
+
     for (let i = 0; i < total; i++) {
         const offset = (i - indice + total) % total;
-        let rotacion = (i - indice) * angulo;
+        const rotacion = (i - indice) * angulo;
 
-        botones[i].style.transform = `rotateY(${rotacion}deg) translateZ(${profundidad}px) scale(${offset === 0 ? 1 : 0.75})`;
+        botones[i].style.transform =
+            `rotateY(${rotacion}deg) translateZ(${profundidad}px) scale(${offset === 0 ? 1 : 0.75})`;
+
         botones[i].style.opacity = offset === 0 ? "1" : "0.2";
-        botones[i].style.pointerEvents = offset === 0 ? "auto" : "none";
     }
 
     const nombreBoton = botones[indice].textContent.trim();
@@ -232,85 +403,116 @@ function actualizarRueda() {
     } else {
         cajaFrase.style.display = "flex";
         diaryCard.style.display = "none";
+
         indicesFrase[nombreBoton] = 0;
         contenedorFrases.innerHTML = "";
         cajaFrase.scrollTop = 0;
+
         mostrarSiguienteFrase();
     }
 }
 
+/* Cambia de sección */
 function cambiarIndice(direccion) {
     indice = (indice + direccion + total) % total;
     actualizarRueda();
 }
 
-function anterior() { cambiarIndice(-1); }
-function siguiente() { cambiarIndice(1); }
-
+/* Escribe el texto evitando intervalos simultáneos */
 function escribirTexto(texto, elemento, callback) {
+    cancelarEscritura();
+
+    const miId = idEscritura;
     escribiendo = true;
+    cajaFrase.style.pointerEvents = "none";
+
     let i = 0;
     elemento.textContent = "";
-    const intervalo = setInterval(() => {
+
+    intervaloEscritura = setInterval(() => {
+        if (miId !== idEscritura) return;
+
         elemento.textContent += texto.charAt(i);
         i++;
+
         cajaFrase.scrollTop = cajaFrase.scrollHeight;
+
         if (i >= texto.length) {
-            clearInterval(intervalo);
+            clearInterval(intervaloEscritura);
+            intervaloEscritura = null;
             escribiendo = false;
+            cajaFrase.style.pointerEvents = "auto";
+
             if (callback) callback();
         }
     }, 28);
 }
 
+/* Avanza a la siguiente frase */
 function avanzarFrase() {
     if (escribiendo) return;
+
     mostrarSiguienteFrase();
 }
 
+/* Muestra la siguiente frase de la sección */
 function mostrarSiguienteFrase() {
+    if (escribiendo) return;
+
     const claveActual = botones[indice].textContent.trim();
+
     if (claveActual === "¿The end?") return;
 
     const lista = frases[claveActual];
+
     if (!lista) return;
 
-    if (!indicesFrase[claveActual]) indicesFrase[claveActual] = 0;
-    let idx = indicesFrase[claveActual];
+    if (indicesFrase[claveActual] === undefined) {
+        indicesFrase[claveActual] = 0;
+    }
+
+    const idx = indicesFrase[claveActual];
 
     if (idx < lista.length) {
         const p = document.createElement("p");
         contenedorFrases.appendChild(p);
-        escribiendo = true;
-        escribirTexto(lista[idx], p, () => { indicesFrase[claveActual]++; });
+
+        escribirTexto(lista[idx], p, () => {
+            indicesFrase[claveActual]++;
+        });
     }
 }
 
-for (let b of botones) {
+/* Control de los botones de la rueda */
+for (const b of botones) {
     b.addEventListener("click", () => {
-        if (!escribiendo && botones[indice].textContent.trim() !== "¿The end?") {
-            mostrarSiguienteFrase();
-        }
+        if (escribiendo) return;
+
+        if (botones[indice].textContent.trim() === "¿The end?") return;
+
+        mostrarSiguienteFrase();
     });
 }
 
-/* ==========================================
-   3. INICIALIZAR EL DIARIO POR FECHAS
-   ========================================== */
+/* Inicializa el diario */
 function inicializarDiario() {
     const container = document.getElementById("diaryDatesContainer");
     const contentBox = document.getElementById("diaryContent");
+
     container.innerHTML = "";
 
     let esPrimero = true;
 
     for (const [fecha, texto] of Object.entries(diarioFechas)) {
         const btn = document.createElement("button");
+
         btn.className = "date-btn";
         btn.textContent = fecha;
 
         btn.onclick = () => {
-            document.querySelectorAll(".date-btn").forEach(b => b.classList.remove("active"));
+            document.querySelectorAll(".date-btn")
+                .forEach(b => b.classList.remove("active"));
+
             btn.classList.add("active");
             contentBox.textContent = texto;
         };
@@ -325,15 +527,14 @@ function inicializarDiario() {
     }
 }
 
-/* ==========================================
-   4. ANIMACIÓN Y CARGA INICIAL
-   ========================================== */
+/* Carga inicial */
 window.addEventListener("load", () => {
     const loader = document.getElementById("loader");
     const contenido = document.getElementById("contenido");
 
     setTimeout(() => {
         loader.style.opacity = "0";
+
         setTimeout(() => {
             loader.style.display = "none";
             contenido.style.opacity = "1";
@@ -342,7 +543,7 @@ window.addEventListener("load", () => {
     }, 400);
 });
 
-// Fondo Interactivo de Corazones
+/* Fondo interactivo de corazones */
 const canvas = document.getElementById("corazones");
 const ctx = canvas.getContext("2d");
 
@@ -350,6 +551,7 @@ function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
+
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
@@ -363,6 +565,7 @@ const corazones = Array.from({ length: 30 }, () => ({
 
 function animarCorazones() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     corazones.forEach(c => {
         c.y -= c.speed;
         c.x += Math.sin(c.y * 0.02) * 0.5;
@@ -375,17 +578,37 @@ function animarCorazones() {
         ctx.save();
         ctx.globalAlpha = c.opacity;
         ctx.beginPath();
+
         ctx.moveTo(c.x, c.y);
-        ctx.bezierCurveTo(c.x - c.size, c.y - c.size, c.x - c.size * 2, c.y + c.size / 3, c.x, c.y + c.size * 2);
-        ctx.bezierCurveTo(c.x + c.size * 2, c.y + c.size / 3, c.x + c.size, c.y - c.size, c.x, c.y);
+
+        ctx.bezierCurveTo(
+            c.x - c.size,
+            c.y - c.size,
+            c.x - c.size * 2,
+            c.y + c.size / 3,
+            c.x,
+            c.y + c.size * 2
+        );
+
+        ctx.bezierCurveTo(
+            c.x + c.size * 2,
+            c.y + c.size / 3,
+            c.x + c.size,
+            c.y - c.size,
+            c.x,
+            c.y
+        );
+
         ctx.fillStyle = "#f43f5e";
         ctx.shadowBlur = 10;
         ctx.shadowColor = "#e11d48";
         ctx.fill();
         ctx.restore();
     });
+
     requestAnimationFrame(animarCorazones);
 }
+
 animarCorazones();
 </script>
 
