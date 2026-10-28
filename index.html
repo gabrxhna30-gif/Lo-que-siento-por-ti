@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -72,7 +71,7 @@
     to { transform: rotate(360deg); }
   }
 
-  .main-card, .diary-card {
+  .main-card {
     position: relative;
     z-index: 10;
     width: 100%;
@@ -92,27 +91,14 @@
     margin-bottom: 25px;
   }
 
-  .diary-card {
-    display: none;
-    animation: fadeIn 0.5s ease forwards;
-  }
-
-  h1, .diary-card h2 {
+  h1 {
     font-weight: 700;
     background: linear-gradient(135deg, #ffffff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 0 35px rgb(140, 0, 255);
-  }
-
-  h1 {
     font-size: clamp(24px, 5vw, 38px);
     margin-bottom: 20px;
-  }
-
-  .diary-card h2 {
-    font-size: clamp(20px, 4vw, 28px);
-    margin-bottom: 15px;
   }
 
   #escena {
@@ -169,7 +155,7 @@
     transform: translateY(-2px);
   }
 
-  #frase-box, .diary-content {
+  #frase-box {
     width: 100%;
     height: 220px;
     background: rgba(0, 0, 0, 0.25);
@@ -182,9 +168,6 @@
     color: var(--text-sub);
     font-size: 1.05rem;
     line-height: 1.6;
-  }
-
-  #frase-box {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -213,43 +196,6 @@
   #frase p {
     margin-bottom: 12px;
     animation: fadeIn 0.4s ease forwards;
-  }
-
-  .diary-dates {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 10px;
-    overflow-x: auto;
-    width: 100%;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-    justify-content: flex-start;
-    scroll-behavior: smooth;
-  }
-
-  .date-btn {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: var(--text-main);
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-  }
-
-  .date-btn:hover {
-    background: rgba(168, 85, 247, 0.4);
-    transform: translateY(-2px);
-  }
-
-  .date-btn.active {
-    background: #a855f7;
-    border-color: #a855f7;
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
-    font-weight: 600;
   }
 
   @keyframes fadeIn {
@@ -285,7 +231,7 @@
       <button>Durante</button>
       <button>Después</button>
       <button>Infinito</button>
-      <button>¿The end?</button>
+      <button>The end</button>
     </div>
   </div>
 
@@ -299,30 +245,11 @@
   </div>
 </div>
 
-<!-- SECCIÓN SECUNDARIA: DIARIO -->
-<div class="diary-card" id="diaryCard">
-  <h2>Amandote en silencio</h2>
-  <div class="diary-dates" id="diaryDatesContainer"></div>
-  <div class="diary-content" id="diaryContent"></div>
-</div>
-
 <script>
-const diarioFechas = {
-    "22/10/26": "No sé si leas esto, pero aún así lo escribo. Esta es una pequeña forma de hablarte y de no hablarte a la vez, para tal vez no molestarte, pero es que extraño contarte mis días...<br><br>Y bueno, esta es una buena manera de hacerlo (o eso creo yo).",
-
-    "23/10/26": "Holam, bueno, solo quería decirte que espero que hayas salido bien en tu libreta ayer. La verdad es que estaba ahí en el colegio recogiendo la de mi hermano y, bueno, cuando salgo de la reunión estaba tu mami ahí y la saludé, obviamente. Me trajo algo de nostalgia tu mami, la verdad, y mi teacher ahí también molestándome, jajaj.<br><br>Bueno, era eso. Espero que te haya ido muy bien la verdad. Sigue esforzándote cada día más y nunca bajes tus notas, este año ya no debes de llevar matemática en vacaciones, yo sé que tú puedes. Cuídate.",
-
-    "25/10/26": "Holaa, espero te haya ido muy bien hoy, ví que te fuiste al Play Land Park ayer, algo me decia que saldrian porque yo me andaba yendo al mayorista y por ahí veo a un grupo de tus amigos de tu aula jajaja, y bueno de ahí Matias me dijo q te vio ahi, y yap, espero te hayas divertido mucho. Te cuento que hoy mandé solicitud para trabajar aca al frente de mi casa de mozo, y bueno, espero me acepten. <br><br>Tambien queria decirte que si todo esto lo que estoy haciendo en la página te incomoda o te molesta, dimelo y me detendre, porque no quisiera incomodarte. Bueno, eso era todo lo que quería decirte, espero hayas tenido un lindo día y yap.",
-
-    "Extra": "Hola mi niña, sí, para mí aún sigues siendo mi niña hermosa. De todo corazón espero que te esté yendo muy bien en todo este tiempo que no hemos hablado, ojala no hayas descuidado tus estudios, porque como te dije hace unos días, matemática ya no tienes q llevarlo este año, yo sé que tú puedes, tú puedes con todo porque eres una niña fuerte, pero recuerda que aún que puedas con todo, hay veces que uno no puede con todo solo, espero que puedas trabajar en eso, porque sabes que nunca estaras sola. <br><br>Me hubiera gustado seguir contigo, ayudandote y apoyandote en todo lo que hubiese estado a mi alcance, porque la verdad lo unico que queria (y sigo queriendo) es que estes bien, y bueno por esa misma razon fue que acepte tu decisión, pero por mi parte nunca dejé de amarte, hasta el día de hoy no sabes como veo nuestras fotos y solo digo \"Quisiera que volvamos a ser solo nosotros...\", sé que es algo tonto tal vez, pero contigo sentia una conexión hermosa, sentia que contigo podia ser yo mismo, pero tal vez eso a tí no te gustaba mucho, la verdad es que no sé, pero a pesar de todo eso, sigo amandote y esperandote. <br><br>No te voy a mentir, hasta hoy no logro entender el porque de tu decisión, o porque tu repentino cambio de sentimientos, y la verdad si duele, mas que nada por esas cosas que me dijiste que veias y te contaron, y nunca me las dijiste para conversarlas, pero te juro que apesar de eso no sé porque no puedo sacarte de mi cabeza, y es que no puedo olvidarte. <br><br>Te juro que tengo unas ganas malditas de hablarte, pero no puedo, no me atrevo porque sé que tú no sientes lo mismo que yo, y no quiero incomodarte, aun que ya me has dicho que no te incomoda, pero no sé. Te voy a ser sincero, hace unas semanas un amigo me presentó a alguien, y acepté en conocerla, sin esperar nada la verdad, y bien tenia razón, es chevere, pero simplemente no era tú, y no podia sentir nada, así que solo le dejé de hablar porque no queria nada, pero ¿Por qué te cuento esto? Porque quiero que sepas que no es por ella, es por ti, porque no puedo olvidarte, y no sé si algún día lo logre, y por mas gente que conozca, no va a ser lo mismo que contigo, porque tú eres única, y no hay nadie como tú. No decesito a alguien mas, te necesito a tí, y hubiese querido que tú siguieras necesitando que sea yo. Todos los días reviso mi celular pensando que tal vez me hayas hablado, peor cuando estoy en clases, porque un compañero tiene el mismo sonido de notificación que tenia en tu chat, y es como que me emociono pero tambien me asusto, luego veo que no has sido tú y bueno... se siente feito. <br><br>Bueno, como ya dije antes, no quiero incomodarte, y si es que no te gusta que escriba todo esto solo dimelo porfavor, y no lo haré mas, pero si es que me dejas, me gustaria seguir escribiendote y contandote mis días. Si sientes un día que no puedes mas, hablame, porque te prometí siempre estar para tí, y pienso cumplirlo. No olvides nunca lo que siento por tí, y si es que llegas a sentir lo mismo que yo pero por alguien mas, quisiera saber y que me lo cuentes, porque no quisiera estar demostrandote todo esto mientras que tú sientes algo por alguien mas, porque creo que no seria lo correcto, ni para tí, ni para mí, ni para la otra persona. <br><br>Bueno, eso era todo lo que queria decirte, espero que estes bien, y que tengas un lindo día, tarde o noche. Nunca olvides lo mucho que te amo mucho mi niña hermosa, y que siempre estaré para tí, cuidate mucho.",
-
-    "27/10/26": "No sé siquiera leas todo esto, pero creo que todo llegó hasta aquí, te agradezco mucho por todo lo que me diste, por todos los momentos lindos, pero creo que ya es momento de dejar eso atras, porque ya me dí cuenta que no volverá a pasar nada entre nosotros. No olvidaré nada de lo que vivimos, pero solo me queda dar un paso al costado por completo de tu vida, por mas que me duela. Intente hacerte sentir amada, para que veas que de verdad habia alguien que te amaba tal y como eres, que no te juzgaba, y que no te iba a dejar sola, dí lo mejor de mí para que te sintiras bien, pero no sé porque no fue suficiente. Ya tengo en claro que no me amas, y duele como mierda, tú no me extrañas, porque si lo hicieras, me hubieras hablado o me hubieras buscado, pero no lo hiciste, y eso duele porque no sabes lo mucho que yo te extraño, pero como ya te dije, mejor doy un paso al costado, y no insistiré ni molestaré mas. Yo sé tal vez q no soy valiente para decirtelo directamente, pero hablar contigo ya se me hace algo muy dificil, así que te digo todo por aquí. Te amaré lo mas silenciosamente que pueda y no te volveré a molestar, solo espero que seas muy feliz con alguien que de verdad sientas que es el ideal para tí, sigue esforzandote cada día más y nunca dejes de ser esa niña hermosa que eres, te apoyaré siempre en silencio, cuidate, y hasta pronto."
-};
-
 const frases = {
 "Holi": [
     "Hola, mi niña hermosa. ¿Cómo estás? Espero que muy bien...",
-    "Buenoooo, este es un pequeño proyecto que hice para expresar lo que siento por ti de una forma diferente y divertida. Espero que te guste y te saque una sonrisa.",
+    "Buenoooo, este es un pequeño proyecto que hice para expresar lo que siento por ti de una forma diferente y divertida. Espero যে te guste y te saque una sonrisa.",
     "Te preguntarás: ¿Qué piñatas es todo esto? Pues, ¿recuerdas que me pediste una página donde pongas tus emociones y te dé frases?",
     "Pues tomé esa idea y la convertí en algo un poco mejor (espero). Es un recorrido de lo que hemos pasado juntos, el cómo me enamoré de ti y, a su vez, es un recordatorio de lo mucho que te amo.",
     "Así que, sin nada más que decir, espero que te guste este detalle y que nunca olvides lo mucho que te amo y lo importante que eres para mí.",
@@ -352,8 +279,12 @@ const frases = {
     "Espero que este pequeño detalle te haya gustado, porque si no, voy a llorar, jajaj. Te amo mucho, mi niña hermosa 💗. Espero que tengas un lindo día, tarde y noche. Besito para ti, simplemente por existir.",
     "Te amo, mi niña bella. Feliz San Valentín.",
     "Atte.: Tu niño."
-]
+],
 
+"The end": [
+    "27/10/26: No sé si siquiera leas todo esto, pero creo que todo llegó hasta aquí, te agradezco mucho por todo lo que me diste, por todos los momentos lindos, pero creo que ya es momento de dejar eso atras, porque ya me dí cuenta que no volverá a pasar nada entre nosotros. No olvidaré nada de lo que vivimos, pero solo me queda dar un paso al costado por completo de tu vida, por mas que me duela. Intente hacerte sentir amada, para que veas que de verdad habia alguien que te amaba tal y como eres, que no te juzgaba, y que no te iba a dejar sola, dí lo mejor de mí para que te sintiras bien, pero no sé porque no fue suficiente. Ya tengo en claro que no me amas, y duele como mierda, tú no me extrañas, porque si lo hicieras, me hubieras hablado o me hubieras buscado, pero no lo hiciste, y eso`duele porque no sabes lo mucho que yo te extraño, pero como ya te dije, mejor doy un paso al costado, y no insistiré ni molestaré mas. Yo sé tal vez q no soy valiente para decirtelo directamente, pero hablar contigo ya se me hace algo muy dificil, así que te digo todo por aquí. Te amaré lo mas silenciosamente que pueda y no te volveré a molestar, solo espero que seas muy feliz con alguien que de verdad sientas que es el ideal para tí, sigue esforzandote cada día más y nunca dejes de ser esa niña hermosa que eres, te apoyaré siempre en silencio, cuidate, y hasta pronto.",
+    "25/10/26: Hola mi niña, sí, para mí aún sigues siendo mi niña hermosa. De todo corazón espero que te esté yendo muy bien en todo este tiempo que no hemos hablado, ojala no hayas descuidado tus estudios, matemática ya no tienes q llevarlo este año, yo sé que tú puedes, tú puedes con todo porque eres una niña fuerte, pero recuerda que aún que puedas con todo, hay veces que uno no puede con todo solo, espero que puedas trabajar en eso, porque sabes que nunca estaras sola.<br><br>Me hubiera gustado seguir contigo, ayudandote y apoyandote en todo lo que hubiese estado a mi alcance, porque la verdad lo unico que queria (y sigo queriendo) es que estes bien, y bueno por esa misma razon fue que acepte tu decisión, pero por mi parte nunca dejé de amarte, hasta el día de hoy no sabes como veo nuestras fotos y solo digo \"Quisiera que volvamos a ser solo nosotros...\", sé que es algo tonto tal vez, pero contigo sentia una conexión hermosa, sentia que contigo podia ser yo mismo, pero tal vez eso a tí no te gustaba mucho, la verdad es que no sé, pero a pesar de todo eso, sigo amandote y esperandote.<br><br>No te voy a mentir, hasta hoy no logro entender el porque de tu decisión, o porque tu repentino cambio de sentimientos, y la verdad si duele, mas que nada por esas cosas que me dijiste que veias y te contaron, y nunca me las dijiste para conversarlas, pero te juro que apesar de eso no sé porque no puedo sacarte de mi cabeza, y es que no puedo olvidarte.<br><br>Te juro que tengo unas ganas malditas de hablarte, pero no puedo, no me atrevo porque sé que tú no sientes lo mismo que yo, y no quiero incomodarte, aun que ya me has dicho que no te incomoda, pero no sé. Te voy a ser sincero, hace unas semanas un amigo me presentó a alguien, y acepté en conocerla, sin esperar nada la verdad, y bien tenia razón, es chevere, pero simplemente no era tú, y no podia sentir nada, así que solo le dejé de hablar porque no queria nada, pero ¿Por qué te cuento esto? Porque quiero que sepas que no es por ella, es por ti, porque no puedo olvidarte, y no sé si algún día lo logre, y por mas gente que conozca, no va a ser lo mismo que contigo, porque tú eres única, y no hay nadie como tú. No decesito a alguien mas, te necesito a tí, y hubiese querido que tú siguieras necesitando que sea yo. Todos los días reviso mi celular pensando que tal vez me hayas hablado, peor cuando estoy en clases, porque un compañero tiene el mismo sonido de notificación que tenia en tu chat, y es como que me emociono pero tambien me asusto, luego veo que no has sido tú y bueno... se siente feito.<br><br>No quiero incomodarte, y si es que no te gusta que escriba todo esto solo dimelo porfavor, y no lo haré mas, pero si es que me dejas, me gustaria seguir escribiendote y contandote mis días. Si sientes un día que no puedes mas, hablame, porque te prometí siempre estar para tí, y pienso cumplirlo. No olvides nunca lo que siento por tí, y si es que llegas a sentir lo mismo que yo pero por alguien mas, quisiera saber y que me lo cuentes, porque no quisiera estar demostrandote todo esto mientras que tú sientes algo por alguien mas, porque creo que no seria lo correcto, ni para tí, ni para mí, ni para la otra persona.<br><br>Bueno, eso era todo lo que queria decirte, espero que estes bien, y que tengas un lindo día, tarde o noche. Nunca olvides lo mucho que te amo mucho mi niña hermosa, y que siempre estaré para tí, cuidate mucho."
+]
 };
 
 const rueda = document.getElementById("rueda");
@@ -366,7 +297,6 @@ let indice = 0;
 const indicesFrase = {};
 const contenedorFrases = document.getElementById("frase");
 const cajaFrase = document.getElementById("frase-box");
-const diaryCard = document.getElementById("diaryCard");
 
 let escribiendo = false;
 let intervaloEscritura = null;
@@ -401,20 +331,11 @@ function actualizarRueda() {
 
     const nombreBoton = botones[indice].textContent.trim();
 
-    if (nombreBoton === "¿The end?") {
-        cajaFrase.style.display = "none";
-        diaryCard.style.display = "flex";
-        inicializarDiario();
-    } else {
-        cajaFrase.style.display = "flex";
-        diaryCard.style.display = "none";
+    indicesFrase[nombreBoton] = 0;
+    contenedorFrases.innerHTML = "";
+    cajaFrase.scrollTop = 0;
 
-        indicesFrase[nombreBoton] = 0;
-        contenedorFrases.innerHTML = "";
-        cajaFrase.scrollTop = 0;
-
-        mostrarSiguienteFrase();
-    }
+    mostrarSiguienteFrase();
 }
 
 /* Cambia de sección */
@@ -423,7 +344,7 @@ function cambiarIndice(direccion) {
     actualizarRueda();
 }
 
-/* Escribe el texto evitando intervalos simultáneos */
+/* Escribe el texto permitiendo HTML (<br>) y evitando intervalos simultáneos */
 function escribirTexto(texto, elemento, callback) {
     cancelarEscritura();
 
@@ -432,12 +353,13 @@ function escribirTexto(texto, elemento, callback) {
     cajaFrase.style.pointerEvents = "none";
 
     let i = 0;
-    elemento.textContent = "";
+    elemento.innerHTML = "";
 
     intervaloEscritura = setInterval(() => {
         if (miId !== idEscritura) return;
 
-        elemento.textContent += texto.charAt(i);
+        // Se usa slice para ir mostrando el texto progresivamente sin romper etiquetas <br>
+        elemento.innerHTML = texto.slice(0, i + 1);
         i++;
 
         cajaFrase.scrollTop = cajaFrase.scrollHeight;
@@ -466,8 +388,6 @@ function mostrarSiguienteFrase() {
 
     const claveActual = botones[indice].textContent.trim();
 
-    if (claveActual === "¿The end?") return;
-
     const lista = frases[claveActual];
 
     if (!lista) return;
@@ -493,43 +413,8 @@ for (const b of botones) {
     b.addEventListener("click", () => {
         if (escribiendo) return;
 
-        if (botones[indice].textContent.trim() === "¿The end?") return;
-
         mostrarSiguienteFrase();
     });
-}
-
-/* Inicializa el diario */
-function inicializarDiario() {
-    const container = document.getElementById("diaryDatesContainer");
-    const contentBox = document.getElementById("diaryContent");
-
-    container.innerHTML = "";
-
-    let esPrimero = true;
-
-    for (const [fecha, texto] of Object.entries(diarioFechas)) {
-        const btn = document.createElement("button");
-
-        btn.className = "date-btn";
-        btn.textContent = fecha;
-
-        btn.onclick = () => {
-            document.querySelectorAll(".date-btn")
-                .forEach(b => b.classList.remove("active"));
-
-            btn.classList.add("active");
-            contentBox.innerHTML = texto;
-        };
-
-        container.appendChild(btn);
-
-        if (esPrimero) {
-            btn.classList.add("active");
-            contentBox.innerHTML = texto;
-            esPrimero = false;
-        }
-    }
 }
 
 /* Carga inicial */
